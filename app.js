@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
-const { validateUser } = require('./validate/validate');
+const { validateUser, validateUserForLogin } = require('./validate/validate');
 const auth = require('./middlewares/auth');
 const NotFoundErr = require('./errors/NotFoundErr');
 const errorMiddleware = require('./middlewares/error');
@@ -16,7 +16,7 @@ const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/signin', validateUser, login);
+app.post('/signin', validateUserForLogin, login);
 app.post('/signup', validateUser, createUser);
 
 app.use(auth);

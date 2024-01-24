@@ -28,8 +28,6 @@ module.exports.getUserById = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequestErr('Данные введены некорректно'));
-      } else if (err.message === 'NotFound') {
-        next(new NotFoundErr('Пользователь с указанным id не найден'));
       } else {
         next(err);
       }
@@ -130,10 +128,6 @@ module.exports.getCurrentUser = (req, res, next) => {
     })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestErr('Некорректный id'));
-      } else {
-        next(err);
-      }
+      next(err);
     });
 };

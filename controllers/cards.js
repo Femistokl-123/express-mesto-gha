@@ -1,6 +1,4 @@
 const Card = require('../models/card');
-
-const IternalErr = require('../errors/IternalErr');
 const BadRequestErr = require('../errors/BadRequestErr');
 const NotFoundErr = require('../errors/NotFoundErr');
 const ForbiddenErr = require('../errors/ForbiddenErr');
@@ -10,8 +8,8 @@ module.exports.getCards = (req, res, next) => {
     .then((cards) => {
       res.status(200).send(cards);
     })
-    .catch(() => {
-      next(new IternalErr());
+    .catch((err) => {
+      next(err);
     });
 };
 
@@ -43,12 +41,11 @@ module.exports.deleteCard = (req, res, next) => {
     .then((card) => {
       const { owner } = card;
       if (owner.toString() === req.user._id) {
-        card.deleteOne().then(() => {
+        return card.deleteOne().then(() => {
           res.status(200).send(card);
         });
-      } else {
-        throw new ForbiddenErr('Вы не можете удалить эту карточку');
       }
+      throw new ForbiddenErr('Вы не можете удалить эту карточку');
     })
     .catch((err) => {
       if (err.name === 'CastError') {
