@@ -12,7 +12,7 @@ const validateURL = (value) => {
 
 const validateIDfromDB = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().length(24).hex(),
+    cardId: Joi.string().required().length(24).hex(),
   }),
 });
 

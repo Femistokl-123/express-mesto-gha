@@ -13,7 +13,7 @@ const NotFoundErr = require('./errors/NotFoundErr');
 const errorMiddleware = require('./middlewares/error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+mongoose.connect('mongodb://127.0.0.1/mestodb');
 
 const app = express();
 
