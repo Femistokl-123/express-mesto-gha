@@ -45,6 +45,13 @@ const validateUserAvatarEdit = celebrate({
   }),
 });
 
+const validateUserForLogin = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+});
+
 const validateCardInfoAdd = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
@@ -60,4 +67,5 @@ module.exports = {
   validateUserEdit,
   validateUserAvatarEdit,
   validateCardInfoAdd,
+  validateUserForLogin
 };
